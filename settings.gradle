@@ -1,1 +1,1 @@
-include ':app', ':RetrofitDemo'
+include ':MVPDemo', ':RetrofitDemo'
