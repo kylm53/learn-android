@@ -2,7 +2,6 @@ package com.kkk.retrofitdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onNext(SearchRepoResult repoResult) {
             List<Repo> repos = repoResult.getItems();
-            mTextView.setText(mTextView.getText() + "total("+ repoResult.getTotal_count() +")\n");
+            mTextView.setText(mTextView.getText() + "total(" + repoResult.getTotal_count() + ")\n");
             StringBuilder builder = new StringBuilder();
             for (Repo repo : repos) {
                 Log.i(TAG, repo.getFull_name());
