@@ -1,6 +1,7 @@
 package com.kkk.retrofitdemo;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -8,9 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class APIUtils {
     public static final String BASE_URL = "https://api.github.com/";
-    static Retrofit retrofit = new Retrofit.Builder()
+    private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build();
     public static GitHubService service = retrofit.create(GitHubService.class);
 }
