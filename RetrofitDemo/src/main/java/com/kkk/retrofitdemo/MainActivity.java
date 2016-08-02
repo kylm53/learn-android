@@ -75,8 +75,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public String call(SearchRepoResult repoResult) {
                         List<Repo> repos = repoResult.getItems();
-                        mTextView.setText(mTextView.getText() + "total(" + repoResult.getTotal_count() + ")\n");
                         StringBuilder builder = new StringBuilder();
+
+                        builder.append("total(")
+                                .append(repoResult.getTotal_count())
+                                .append(")\n");
+
                         for (Repo repo : repos) {
                             Log.i(TAG, repo.getFull_name());
                             builder.append(repo.getFull_name())
