@@ -17,6 +17,7 @@ import retrofit2.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,11 +71,27 @@ public class MainActivity extends AppCompatActivity {
 
         searchRepos.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<SearchRepoResult, String>() {
+                    @Override
+                    public String call(SearchRepoResult repoResult) {
+                        List<Repo> repos = repoResult.getItems();
+                        mTextView.setText(mTextView.getText() + "total(" + repoResult.getTotal_count() + ")\n");
+                        StringBuilder builder = new StringBuilder();
+                        for (Repo repo : repos) {
+                            Log.i(TAG, repo.getFull_name());
+                            builder.append(repo.getFull_name())
+                                    .append("\n")
+                                    .append(repo.getHtml_url())
+                                    .append("\n\n");
+                        }
+                        return builder.toString();
+                    }
+                })
                 .subscribe(searchRepoResultSubscriber);
     }
 
     //搜索repo的subscriber
-    Subscriber<SearchRepoResult> searchRepoResultSubscriber = new Subscriber<SearchRepoResult>() {
+    Subscriber<String> searchRepoResultSubscriber = new Subscriber<String>() {
         @Override
         public void onCompleted() {
             mTextView.setText(mTextView.getText() + "\n" + "completed!!!");
@@ -88,18 +105,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onNext(SearchRepoResult repoResult) {
-            List<Repo> repos = repoResult.getItems();
-            mTextView.setText(mTextView.getText() + "total(" + repoResult.getTotal_count() + ")\n");
-            StringBuilder builder = new StringBuilder();
-            for (Repo repo : repos) {
-                Log.i(TAG, repo.getFull_name());
-                builder.append(repo.getFull_name())
-                        .append("\n")
-                        .append(repo.getHtml_url())
-                        .append("\n\n");
-            }
-            mTextView.setText(mTextView.getText() + builder.toString());
+        public void onNext(String repoResult) {
+            mTextView.setText(mTextView.getText() + repoResult);
         }
     };
 }
