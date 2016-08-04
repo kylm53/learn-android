@@ -1,1 +1,1 @@
-include ':MVPDemo', ':RetrofitDemo'
+include ':MVPDemo', ':RetrofitDemo', ':dagger2demo'
