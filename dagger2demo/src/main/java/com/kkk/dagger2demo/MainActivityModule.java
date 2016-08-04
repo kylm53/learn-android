@@ -11,7 +11,7 @@ import dagger.Provides;
 @Module
 public class MainActivityModule {
     @Provides
-    public Car getCar() {
+    public Car provideCar() {
         return new Car();
     }
 }

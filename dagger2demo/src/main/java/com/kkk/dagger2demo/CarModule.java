@@ -22,25 +22,25 @@ import dagger.Provides;
 public class CarModule {
     @Named("honda")
     @Provides
-    public Engine getHondaEngine() {
+    public Engine provideHondaEngine() {
         return new HondaEngine();
     }
 
     @Named("toyota")
     @Provides
-    public Engine getToyotaEngine() {
+    public Engine provideToyotaEngine() {
         return new ToyotaEngine();
     }
 
     @Named("michelin")
     @Provides
-    public List<Tire> getMichelinTires() {
+    public List<Tire> provideMichelinTires() {
         return getTires(MichelinTire.class);
     }
 
     @Named("bridgestone")
     @Provides
-    public List<Tire> getBridgestoneTires() {
+    public List<Tire> provideBridgestoneTires() {
         return getTires(BridgestoneTire.class);
     }
 
