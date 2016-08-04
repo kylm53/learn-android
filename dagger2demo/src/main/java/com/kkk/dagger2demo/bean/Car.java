@@ -28,6 +28,7 @@ public class Car {
     }
 
     public void run() {
+        mEngine.start();
         System.out.println("I'm a car!!! running...");
     }
 }
